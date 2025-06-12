@@ -1,0 +1,16 @@
+name: ADMS Troubleshoot CI
+
+on:
+  push:
+    paths:
+      - 'gridsecure/gridsecure.adms.troubleshoot/**'
+      - '.github/workflows/admstroubleshoot.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build Docker image
+        run: docker build -t admstroubleshoot-app ./gridsecure/gridsecure.adms.troubleshoot/src
