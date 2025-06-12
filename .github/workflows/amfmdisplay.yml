@@ -1,0 +1,16 @@
+name: AMFM Display CI
+
+on:
+  push:
+    paths:
+      - 'gridsecure/gridsecure.amfm.display/**'
+      - '.github/workflows/amfmdisplay.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build Docker image
+        run: docker build -t amfmdisplay-app ./gridsecure/gridsecure.amfm.display/src
