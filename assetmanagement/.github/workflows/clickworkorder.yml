@@ -1,0 +1,21 @@
+name: Click Workorder Build
+
+on:
+  push:
+    branches:
+      - main
+      - clickworkorder
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Build Docker image
+        run: docker build -t clickworkorder-app ./assetmanagement.click.workorder/src
+
+      - name: List Docker images
+        run: docker images
