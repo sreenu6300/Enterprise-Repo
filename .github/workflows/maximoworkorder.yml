@@ -8,18 +8,17 @@ on:
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      - name: Set up Java
-        uses: actions/setup-java@v3
+      - uses: actions/setup-java@v3
         with:
           distribution: temurin
           java-version: 17
-          server-id: github
-          settings-path: $HOME/.m2  # Maven will automatically use settings.xml here
 
       - name: Configure Maven for GitHub Packages
         run: |
@@ -32,14 +31,14 @@ jobs:
               <server>
                 <id>github</id>
                 <username>${{ github.actor }}</username>
-                <password>${{ secrets.Shared_Modules_Token }}</password>
+                <password>${{ secrets.GITHUB_TOKEN }}</password>
               </server>
             </servers>
           </settings>
           EOF
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and Deploy Maven package
         working-directory: ./assetmanagement/assetmanagement.maximo.workorder
         run: mvn clean deploy
-        env:
-          Shared_Modules_Token: ${{ secrets.Shared_Modules_Token }}
