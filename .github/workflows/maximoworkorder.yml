@@ -8,7 +8,6 @@ on:
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -21,22 +20,19 @@ jobs:
 
       - name: Create Maven settings.xml
         run: |
-          cat > $GITHUB_WORKSPACE/settings.xml <<EOF
-          <settings xmlns="http://maven.apache.org/SETTINGS/1.2.0"
-          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.2.0 https://maven.apache.org/xsd/settings-1.2.0.xsd">
-           <servers>
-            <server>
-            <id>github</id>
-            <username>${{ github.actor }}</username>
-            <password>${{ secrets.Shared_Modules_Token }}</password>
-          </server>
-          </servers>
-          </settings>
-EOF
+          echo '<settings xmlns="http://maven.apache.org/SETTINGS/1.2.0"
+                          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.2.0 https://maven.apache.org/xsd/settings-1.2.0.xsd">
+                 <servers>
+                  <server>
+                    <id>github</id>
+                    <username>${{ github.actor }}</username>
+                    <password>${{ secrets.Shared_Modules_Token }}</password>
+                  </server>
+                </servers>
+              </settings>' > $GITHUB_WORKSPACE/settings.xml
 
       - name: Build and Deploy Maven package
-        # Set working-directory to the location of your pom.xml, or remove if it's in the root
         run: mvn deploy --settings ${{ github.workspace }}/settings.xml
         env:
           Shared_Modules_Token: ${{ secrets.Shared_Modules_Token }}
