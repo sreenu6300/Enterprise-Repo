@@ -1,21 +1,26 @@
-name: Maximo Workorder Build
+name: Build and Deploy Maximo Workorder
 
 on:
   push:
     branches:
       - main
-      - maximoworkorder
 
 jobs:
-  build:
+  build-deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Build Docker image
-        run: docker build -t maximoworkorder-app ./assetmanagement/assetmanagement.maximo.workorder/src
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'  # or whichever version you need
+          server-id: github
+          settings-path: ${{ github.workspace }}/settings.xml
 
-      - name: List Docker images
-        run: docker images
+      - name: Deploy Maven package
+        run: mvn deploy --settings $GITHUB_WORKSPACE/settings.xml
+        env:
+          Shared_Modules_Token: ${{ secrets.Shared_Modules_Token }}
