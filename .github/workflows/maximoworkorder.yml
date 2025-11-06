@@ -21,16 +21,15 @@ jobs:
       - name: Create Maven settings.xml
         run: |
           cat > $GITHUB_WORKSPACE/settings.xml <<'EOF'
-<settings xmlns="http://maven.apache.org/SETTINGS/1.2.0">
-  <servers>
-    <server>
-      <id>github</id>
-      <username>${{ github.actor }}</username>
-      <password>${{ secrets.Shared_Modules_Token }}</password>
-    </server>
-  </servers>
-</settings>
-EOF
+          <settings xmlns="http://maven.apache.org/SETTINGS/1.2.0">
+          <servers>
+            <server>
+              <id>github</id>
+              <username>${{ github.actor }}</username>
+              <password>${{ secrets.Shared_Modules_Token }}</password>
+           </server >
+          </servers>
+          </settings>
 
       - name: Deploy Maven package
         run: mvn deploy --settings $GITHUB_WORKSPACE/settings.xml
