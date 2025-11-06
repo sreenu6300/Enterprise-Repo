@@ -20,7 +20,20 @@ jobs:
           java-version: '17'
 
       - name: Create Maven settings.xml
-        run: bash .github/scripts/create-maven-settings.sh
+        run: |
+          cat > $GITHUB_WORKSPACE/settings.xml <<EOF
+          <settings xmlns="http://maven.apache.org/SETTINGS/1.2.0"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.2.0 https://maven.apache.org/xsd/settings-1.2.0.xsd">
+            <servers>
+              <server>
+                <id>github</id>
+                <username>YOUR_GITHUB_USERNAME</username>
+                <password>${{ secrets.Shared_Modules_Token }}</password>
+              </server>
+            </servers>
+          </settings>
+          EOF
 
       - name: Build and Deploy Maven package
         working-directory: ./assetmanagement/assetmanagement.maximo.workorder/src
