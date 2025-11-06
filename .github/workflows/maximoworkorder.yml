@@ -36,5 +36,5 @@ jobs:
           EOF
 
       - name: Build and Deploy Maven package
-        working-directory: ./assetmanagement/assetmanagement.maximo.workorder/src
+        working-directory: ./assetmanagement/assetmanagement.maximo.workorder
         run: mvn deploy --settings $GITHUB_WORKSPACE/settings.xml
