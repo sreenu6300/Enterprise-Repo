@@ -12,7 +12,7 @@
     <name>Maximo Workorder App</name>
     <description>Dockerized Maximo Workorder App</description>
 
-    <!-- Dependencies (if enterprise-sample is needed) -->
+    <!-- Dependencies -->
     <dependencies>
         <dependency>
             <groupId>com.sreenu6300</groupId>
@@ -24,7 +24,7 @@
     <!-- Build configuration -->
     <build>
         <plugins>
-            <!-- Include resources (shell script and properties) -->
+            <!-- Copy resources (shell script, properties, Dockerfile) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
@@ -70,7 +70,7 @@
                 </configuration>
             </plugin>
 
-            <!-- Optional: Maven Deploy Plugin -->
+            <!-- Deploy plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
@@ -79,7 +79,7 @@
         </plugins>
     </build>
 
-    <!-- Deployment to GitHub Packages -->
+    <!-- GitHub Packages repository -->
     <distributionManagement>
         <repository>
             <id>github</id>
@@ -87,4 +87,13 @@
             <url>https://maven.pkg.github.com/sreenu6300/Enterprise-Repo</url>
         </repository>
     </distributionManagement>
+
+    <!-- Optional: specify repository for resolving dependencies if enterprise-sample is hosted in GitHub Packages -->
+    <repositories>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/sreenu6300/Enterprise-Repo</url>
+        </repository>
+    </repositories>
 </project>
