@@ -4,7 +4,6 @@
                              http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- Basic coordinates -->
     <groupId>com.sreenu6300</groupId>
     <artifactId>maximo-workorder</artifactId>
     <version>1.0.0</version>
@@ -12,7 +11,6 @@
     <name>Maximo Workorder App</name>
     <description>Dockerized Maximo Workorder App</description>
 
-    <!-- Dependencies -->
     <dependencies>
         <dependency>
             <groupId>com.sreenu6300</groupId>
@@ -21,10 +19,9 @@
         </dependency>
     </dependencies>
 
-    <!-- Build configuration -->
     <build>
         <plugins>
-            <!-- Copy resources (shell script, properties, Dockerfile) -->
+            <!-- Include resources -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
@@ -53,24 +50,13 @@
                 </executions>
             </plugin>
 
-            <!-- Package everything into a jar -->
+            <!-- Package jar -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.4.1</version>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                        </manifest>
-                    </archive>
-                    <includes>
-                        <include>**/*</include>
-                    </includes>
-                </configuration>
             </plugin>
 
-            <!-- Deploy plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
@@ -79,7 +65,7 @@
         </plugins>
     </build>
 
-    <!-- GitHub Packages repository -->
+    <!-- GitHub Packages -->
     <distributionManagement>
         <repository>
             <id>github</id>
@@ -88,11 +74,9 @@
         </repository>
     </distributionManagement>
 
-    <!-- Optional: specify repository for resolving dependencies if enterprise-sample is hosted in GitHub Packages -->
     <repositories>
         <repository>
             <id>github</id>
-            <name>GitHub Packages</name>
             <url>https://maven.pkg.github.com/sreenu6300/Enterprise-Repo</url>
         </repository>
     </repositories>
