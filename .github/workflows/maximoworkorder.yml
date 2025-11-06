@@ -20,7 +20,7 @@ jobs:
 
       - name: Create Maven settings.xml
         run: |
-          cat > $GITHUB_WORKSPACE/settings.xml <<EOF
+          cat > $GITHUB_WORKSPACE/settings.xml <<'EOF'
 <settings xmlns="http://maven.apache.org/SETTINGS/1.2.0">
   <servers>
     <server>
