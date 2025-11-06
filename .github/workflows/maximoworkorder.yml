@@ -33,6 +33,8 @@ jobs:
               </settings>' > $GITHUB_WORKSPACE/settings.xml
 
       - name: Build and Deploy Maven package
-        run: mvn deploy --settings ${{ github.workspace }}/settings.xml
+        working-directory: ./assetmanagement/assetmanagement.maximo.workorder
+        run: mvn deploy --settings $GITHUB_WORKSPACE/settings.xml
         env:
           Shared_Modules_Token: ${{ secrets.Shared_Modules_Token }}
+
