@@ -16,11 +16,21 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: '17'  # or whichever version you need
-          server-id: github
-          settings-path: ${{ github.workspace }}/settings.xml
+          java-version: '17'
+
+      - name: Create Maven settings.xml
+        run: |
+          cat > $GITHUB_WORKSPACE/settings.xml <<EOF
+<settings xmlns="http://maven.apache.org/SETTINGS/1.2.0">
+  <servers>
+    <server>
+      <id>github</id>
+      <username>${{ github.actor }}</username>
+      <password>${{ secrets.Shared_Modules_Token }}</password>
+    </server>
+  </servers>
+</settings>
+EOF
 
       - name: Deploy Maven package
         run: mvn deploy --settings $GITHUB_WORKSPACE/settings.xml
-        env:
-          Shared_Modules_Token: ${{ secrets.Shared_Modules_Token }}
