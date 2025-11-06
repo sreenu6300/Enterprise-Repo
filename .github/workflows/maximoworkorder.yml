@@ -32,7 +32,7 @@ jobs:
             <password>${{ secrets.Shared_Modules_Token }}</password>
           </server>
           </servers>
-</settings>
+          </settings>
 EOF
 
       - name: Build and Deploy Maven package
